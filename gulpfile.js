@@ -1,15 +1,15 @@
 var gulp = require('gulp'),
 	plugin = require('gulp-load-plugins')(),
 	del = require('del'),
-	importStyle = require('./assets/gulp/importStyle');
+	importStyle = require('./assets/gulp/importStyle'),
+	gutil = require('gulp-util');
 
 var paths = {
 	js   : 'js/**',
 	less : ['style/index.less',
 	        'style/global/*.less',
 	        'style/base/*.less',
-	        'style/deprecated/*.less',
-	        'style/partials/*.less',
+	        'style/layout/*.less',
 	        'style/module/*.less',
 	        'style/theme/*.less'],
 	bower: ['lib/**/*',
@@ -80,8 +80,16 @@ gulp.task('js', function () {
 });
 
 gulp.task('style', function () {
-	return gulp.src(paths.less, {base: 'style'}).
-		pipe(plugin.plumber()).
+	var stream = gulp.src(paths.less, {base: 'style'}).
+		pipe(plugin.plumber(
+			     {
+				     errorHandler: function (error) {
+					     gutil.log(
+						     error.toString()
+					     );
+					     stream.end();
+				     }
+			     })).
 		// 自定义动作,将所有依赖项动态写入index.less
 		pipe(importStyle({exclude: /^global/})).
 		pipe(plugin.less()).
@@ -91,10 +99,11 @@ gulp.task('style', function () {
 		pipe(plugin.minifyCss()).
 		pipe(plugin.rename(names.destAppMin + '.css')).
 		pipe(gulp.dest(paths.dist.css));
+	return stream;
 });
 
 gulp.task('watchStyle', function () {
-//	gulp.watch(paths.less, ['style']);
+	gulp.watch(paths.less, ['style']);
 });
 
 gulp.task('watchJs', function () {

@@ -1,11 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html ng-app = "resume">
 <head>
   <meta http-equiv = "Content-Type" content = "text/html; charset=UTF-8;">
   <meta http-equiv = "x-ua-compatible" content = "IE=edge;chrome=1;">
+  <meta name = "viewport"
+        content = "width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0"/>
   <title></title>
+  <link rel = "stylesheet" href = "lib/normalize.css/normalize.css">
+  <link rel = "stylesheet" href = "lib/famous-angular/dist/famous-angular.css">
+  <link rel = "stylesheet" href = "css/app.all.css">
 </head>
 <body>
-
+<ui-view></ui-view>
 </body>
+<!-- lib -->
+<script src = "lib/angular/angular.js"></script>
+<script src = "lib/angular-animate/angular-animate.js"></script>
+<script src = "lib/angular-ui-router/release/angular-ui-router.js"></script>
+<script src = "lib/famous/dist/famous-global.js"></script>
+<script src = "lib/famous-angular/dist/famous-angular.js"></script>
+
+<!-- js -->
+<script src = "js/app.all.js"></script>
 </html>

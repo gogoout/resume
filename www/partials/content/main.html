@@ -1,11 +1,51 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta http-equiv = "Content-Type" content = "text/html; charset=UTF-8;">
-  <meta http-equiv = "x-ua-compatible" content = "IE=edge;chrome=1;">
-  <title></title>
-</head>
-<body>
+<fa-sequential-layout>
 
-</body>
-</html>
+  <fa-modifier fa-opacity = "vm.leadingOption.timeline"
+               fa-translate = "vm.leadingOption.translate(vm.leadingOption.timeline())">
+    <fa-surface fa-size = "[undefined,true]" class = "lead">
+      {{vm.profile.name}}
+    </fa-surface>
+  </fa-modifier>
+
+  <fa-modifier fa-translate = "vm.skillsOption.translate(vm.skillsOption.timeline())">
+    <fa-sequential-layout ng-controller = "SkillsCtrl">
+      <fa-modifier fa-opacity = "vm.skillsOption.timeline">
+        <fa-surface fa-size = "[undefined,true]">
+          <h1>skills</h1>
+        </fa-surface>
+      </fa-modifier>
+
+      <fa-view ng-repeat = "skill in vm.profile.skills" fa-size = "[undefined,50]">
+        <fa-modifier fa-opacity = "vm.skillsOption.timeline">
+          <fa-surface fa-translate = "[0,0,2]" fa-size = "[undefined,true]">
+            {{skill.name}}
+          </fa-surface>
+          <fa-modifier fa-origin = "[0,0.5]" fa-translate = "[0,30,1]">
+            <fa-surface fa-size = "getSize(10,true);"
+                        fa-background-color = "'#000'">
+            </fa-surface>
+            <fa-modifier fa-size = "getSize(makeTransitionable(skill.value))">
+              <fa-surface fa-background-color = "getColor(skill.value);">
+              </fa-surface>
+            </fa-modifier>
+          </fa-modifier>
+        </fa-modifier>
+      </fa-view>
+    </fa-sequential-layout>
+  </fa-modifier>
+
+  <fa-modifier fa-translate = "vm.educationOption.translate(vm.skillsOption.timeline())">
+    <fa-sequential-layout>
+      <fa-modifier fa-opacity = "vm.educationOption.timeline">
+        <fa-surface fa-size = "[undefined,true]">
+          <h1>education</h1>
+        </fa-surface>
+      </fa-modifier>
+      <fa-modifier fa-opacity = "vm.educationOption.timeline" ng-repeat = "desc in vm.profile.education">
+        <fa-surface fa-size = "[undefined,true]">
+          {{desc}}
+        </fa-surface>
+      </fa-modifier>
+    </fa-sequential-layout>
+  </fa-modifier>
+</fa-sequential-layout>
