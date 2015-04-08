@@ -2,7 +2,7 @@
 
   <fa-modifier fa-opacity = "vm.leadingOption.timeline"
                fa-translate = "vm.leadingOption.translate(vm.leadingOption.timeline())">
-    <fa-surface fa-size = "[undefined,true]" class = "lead">
+    <fa-surface fa-size = "[true,true]" class = "profile lead"  fa-pipe-to = "parentVm.eventHandler">
       {{vm.profile.name}}
     </fa-surface>
   </fa-modifier>
@@ -10,22 +10,22 @@
   <fa-modifier fa-translate = "vm.skillsOption.translate(vm.skillsOption.timeline())">
     <fa-sequential-layout ng-controller = "SkillsCtrl">
       <fa-modifier fa-opacity = "vm.skillsOption.timeline">
-        <fa-surface fa-size = "[undefined,true]">
+        <fa-surface fa-size = "[true,true]" class = "main-panel" fa-pipe-to = "parentVm.eventHandler">
           <h1>skills</h1>
         </fa-surface>
       </fa-modifier>
 
-      <fa-view ng-repeat = "skill in vm.profile.skills" fa-size = "[undefined,50]">
+      <fa-view ng-repeat = "skill in vm.profile.skills" fa-size = "[undefined,50]" fa-pipe-to = "parentVm.eventHandler">
         <fa-modifier fa-opacity = "vm.skillsOption.timeline">
-          <fa-surface fa-translate = "[0,0,2]" fa-size = "[undefined,true]">
+          <fa-surface fa-translate = "[0,0,2]" fa-size = "[undefined,true]" >
             {{skill.name}}
           </fa-surface>
           <fa-modifier fa-origin = "[0,0.5]" fa-translate = "[0,30,1]">
             <fa-surface fa-size = "getSize(10,true);"
-                        fa-background-color = "'#000'">
+                        fa-background-color = "'#000'"  fa-pipe-to = "parentVm.eventHandler">
             </fa-surface>
             <fa-modifier fa-size = "getSize(makeTransitionable(skill.value))">
-              <fa-surface fa-background-color = "getColor(skill.value);">
+              <fa-surface fa-background-color = "getColor(skill.value);" >
               </fa-surface>
             </fa-modifier>
           </fa-modifier>
@@ -37,13 +37,17 @@
   <fa-modifier fa-translate = "vm.educationOption.translate(vm.skillsOption.timeline())">
     <fa-sequential-layout>
       <fa-modifier fa-opacity = "vm.educationOption.timeline">
-        <fa-surface fa-size = "[undefined,true]">
+        <fa-surface fa-size = "[true,true]" class = "main-panel"  fa-pipe-to = "parentVm.eventHandler">
           <h1>education</h1>
         </fa-surface>
       </fa-modifier>
-      <fa-modifier fa-opacity = "vm.educationOption.timeline" ng-repeat = "desc in vm.profile.education">
-        <fa-surface fa-size = "[undefined,true]">
-          {{desc}}
+      <fa-modifier fa-opacity = "vm.educationOption.timeline">
+        <fa-surface fa-size = "[true,true]" class = "main-panel"  fa-pipe-to = "parentVm.eventHandler">
+          <ul>
+            <li ng-repeat = "desc in vm.profile.education">
+              {{desc}}
+            </li>
+          </ul>
         </fa-surface>
       </fa-modifier>
     </fa-sequential-layout>

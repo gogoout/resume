@@ -29,6 +29,9 @@ a {
   text-decoration: none;
   color: #D28BA4;
 }
+ul {
+  padding-left: 20px;
+}
 .lead {
   font-size: 40px;
   text-transform: uppercase;
@@ -52,10 +55,22 @@ h1 {
   left: 0;
   right: 0;
 }
-.sub-container {
-  padding: 67px 600px;
-  padding-right: 67px;
-  color: white;
+.background {
+  background-color: #3D3E42;
+}
+.foreground {
+  background-color: #EAE9E9;
+  min-width: 600px;
+  width: 38.2%;
+}
+.main-panel {
+  width: 600px;
+}
+.sub-panel {
+  width: 350px;
+}
+.experience-panel {
+  width: 700px;
 }
 .define-list {
   display: -webkit-box;
