@@ -1,60 +1,62 @@
-<fa-modifier fa-origin = "[1,0]" fa-align = "[1,0]">
+<fa-modifier>
   <fa-sequential-layout>
+    <fa-modifier fa-origin = "[1,0]" fa-align = "[1,0]">
+      <fa-sequential-layout fa-options = "vm.upperLayoutOption">
+        <fa-modifier fa-translate = "vm.infoOption.translate(vm.infoOption.timeline())">
+          <fa-sequential-layout>
+            <fa-modifier fa-opacity = "vm.infoOption.timeline">
+              <fa-surface class = "sub-panel" fa-size = "[true,true]" fa-pipe-to = "parentVm.eventHandler">
+                <h1>info</h1>
+              </fa-surface>
+            </fa-modifier>
+            <fa-modifier fa-opacity = "vm.infoOption.timeline">
+              <fa-surface class = "sub-panel" fa-size = "[true,80]" fa-pipe-to = "parentVm.eventHandler">
+                <dl class = "define-list">
+                  <dt>Birth</dt>
+                  <dd>{{vm.profile.info.birth | date :'MMM y'}}</dd>
+                  <dt>Location</dt>
+                  <dd>{{vm.profile.info.location}}</dd>
+                </dl>
+              </fa-surface>
+            </fa-modifier>
+          </fa-sequential-layout>
+        </fa-modifier>
 
-    <fa-sequential-layout fa-options = "{direction:0}">
-      <fa-modifier fa-translate = "vm.infoOption.translate(vm.infoOption.timeline())">
-        <fa-sequential-layout>
-          <fa-modifier fa-opacity = "vm.infoOption.timeline">
-            <fa-surface fa-size = "[300,true]" fa-pipe-to = "parentVm.eventHandler">
-              <h1>info</h1>
-            </fa-surface>
-          </fa-modifier>
-          <fa-modifier fa-opacity = "vm.infoOption.timeline">
-            <fa-surface fa-size = "[300,30]" fa-pipe-to = "parentVm.eventHandler">
-              <dl class = "define-list">
-                <dt>Birth</dt>
-                <dd>{{vm.profile.info.birth | date :'MMM y'}}</dd>
-                <dt>Location</dt>
-                <dd>{{vm.profile.info.location}}</dd>
-              </dl>
-            </fa-surface>
-          </fa-modifier>
-        </fa-sequential-layout>
-      </fa-modifier>
+        <fa-modifier fa-translate = "vm.contactOption.translate(vm.contactOption.timeline())">
+          <fa-sequential-layout>
+            <fa-modifier fa-opacity = "vm.contactOption.timeline">
+              <fa-surface class = "sub-panel" fa-size = "[true,true]" fa-pipe-to = "parentVm.eventHandler">
+                <h1>contact</h1>
+              </fa-surface>
+            </fa-modifier>
+            <fa-modifier fa-opacity = "vm.contactOption.timeline">
+              <fa-surface class = "sub-panel" fa-size = "[true,80]" fa-pipe-to = "parentVm.eventHandler">
+                <dl class = "define-list">
+                  <dt>Mail</dt>
+                  <dd><a target = "_blank"
+                         ng-href = "{{'mailto:'+vm.profile.contact.mail}}">{{vm.profile.contact.mail}}</a>
+                  </dd>
+                  <dt>Github</dt>
+                  <dd><a target = "_blank"
+                         ng-href = "{{'https://'+vm.profile.contact.github}}">{{vm.profile.contact.github}}</a></dd>
+                </dl>
+              </fa-surface>
+            </fa-modifier>
+          </fa-sequential-layout>
+        </fa-modifier>
+      </fa-sequential-layout>
+    </fa-modifier>
 
-      <fa-modifier fa-translate = "vm.contactOption.translate(vm.contactOption.timeline())">
-        <fa-sequential-layout>
-          <fa-modifier fa-opacity = "vm.contactOption.timeline">
-            <fa-surface fa-size = "[300,true]" fa-pipe-to = "parentVm.eventHandler">
-              <h1>contact</h1>
-            </fa-surface>
-          </fa-modifier>
-          <fa-modifier fa-opacity = "vm.contactOption.timeline">
-            <fa-surface fa-size = "[300,30]" fa-pipe-to = "parentVm.eventHandler">
-              <dl class = "define-list">
-                <dt>Mail</dt>
-                <dd><a target = "_blank"
-                       ng-href = "{{'mailto:'+vm.profile.contact.mail}}">{{vm.profile.contact.mail}}</a>
-                </dd>
-                <dt>Github</dt>
-                <dd><a target = "_blank"
-                       ng-href = "{{'https://'+vm.profile.contact.github}}">{{vm.profile.contact.github}}</a></dd>
-              </dl>
-            </fa-surface>
-          </fa-modifier>
-        </fa-sequential-layout>
-      </fa-modifier>
-    </fa-sequential-layout>
-
-    <fa-modifier fa-translate = "vm.experienceOption.translate(vm.experienceOption.timeline())">
+    <fa-modifier fa-translate = "vm.experienceOption.translate(vm.experienceOption.timeline())" fa-origin = "[1,0]"
+                 fa-align = "[1,0]">
       <fa-sequential-layout>
         <fa-modifier fa-opacity = "vm.experienceOption.timeline">
-          <fa-surface fa-size = "[700,true]" fa-pipe-to = "parentVm.eventHandler">
+          <fa-surface class = "experience-panel" fa-size = "[true,true]" fa-pipe-to = "parentVm.eventHandler">
             <h1>experience</h1>
           </fa-surface>
         </fa-modifier>
         <fa-modifier fa-opacity = "vm.experienceOption.timeline">
-          <fa-surface fa-size = "[700,30]" fa-pipe-to = "parentVm.eventHandler">
+          <fa-surface class = "experience-panel" fa-size = "[true,30]" fa-pipe-to = "parentVm.eventHandler">
             <dl class = "define-list">
               <dt ng-repeat-start = "eachExp in vm.profile.experience">
                 <b>{{eachExp.company}}</b></dt>

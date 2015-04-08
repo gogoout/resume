@@ -4,37 +4,44 @@
       fa-origin = "[0.5,0.5]"
       fa-align = "[0.5,0.5]"
       fa-opacity = "vm.backgroundOption.timeline"
-      fa-translate = "vm.backgroundOption.translate(vm.backgroundOption.timeline())"
-      >
-    <fa-surface fa-background-color = "'#3D3E42'"></fa-surface>
+      fa-translate = "vm.backgroundOption.translate(vm.backgroundOption.timeline())">
+    <fa-surface class = "background"></fa-surface>
   </fa-modifier>
 
-  <!-- SUB INFO -->
-  <fa-modifier>
-    <fa-scroll-view fa-options = "vm.scrollViewOption" fa-pipe-from = "vm.eventHandler">
-      <fa-view>
-        <fa-modifier fa-translate = "[-36,36,2]" fa-size = "[undefined,true]">
-          <ui-view name = "sub">
-          </ui-view>
+  <fa-scroll-view id = "outer-scroller" fa-options = "vm.outerScrollViewOption" fa-pipe-from = "vm.eventHandler">
+    <fa-view fa-pipe-to = "vm.eventHandler">
+      <fa-modifier fa-size = "vm.contentSize">
+        <!-- SUB INFO -->
+        <fa-modifier>
+          <fa-scroll-view fa-options = "vm.scrollViewOption" fa-pipe-from = "vm.eventHandler">
+            <fa-view fa-pipe-to = "vm.eventHandler">
+              <fa-modifier fa-translate = "[-36,36,2]">
+                <ui-view name = "sub">
+                </ui-view>
+              </fa-modifier>
+            </fa-view>
+          </fa-scroll-view>
         </fa-modifier>
-      </fa-view>
-    </fa-scroll-view>
-  </fa-modifier>
-  <!-- FOREGOURND -->
-  <fa-modifier fa-size = "[600,undefined]" fa-origin = "[0,0]"
-               fa-opacity = "vm.foregroundOption.timeline"
-               fa-translate = "vm.foregroundOption.translate(vm.foregroundOption.timeline())"
-               fa-skew = "[0, 0, -0.3]">
-    <fa-surface fa-background-color = "'#EAE9E9'"></fa-surface>
-  </fa-modifier>
-  <!-- MAIN INFO -->
-  <fa-modifier fa-translate = "[0,0,2]" fa-size = "[600,undefined]">
-    <fa-view>
-      <fa-modifier
-          fa-translate = "[36,36,2]">
-        <ui-view name = "main">
-        </ui-view>
+
+        <!-- FOREGOURND -->
+        <fa-modifier fa-size = "[true,undefined]" fa-origin = "[0,0]"
+                     fa-opacity = "vm.foregroundOption.timeline"
+                     fa-translate = "vm.foregroundOption.translate(vm.foregroundOption.timeline())"
+                     fa-skew = "vm.foregroundOption.skew">
+          <fa-surface class = "foreground" fa-pipe-to = "vm.eventHandler"></fa-surface>
+        </fa-modifier>
+
+        <!-- MAIN INFO -->
+        <fa-modifier fa-translate = "[0,0,2]" fa-size = "[true,undefined]">
+          <fa-view fa-pipe-to = "vm.eventHandler">
+            <fa-modifier
+                fa-translate = "[36,36,2]">
+              <ui-view name = "main">
+              </ui-view>
+            </fa-modifier>
+          </fa-view>
+        </fa-modifier>
       </fa-modifier>
     </fa-view>
-  </fa-modifier>
+  </fa-scroll-view>
 </fa-app>

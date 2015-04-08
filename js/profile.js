@@ -16,8 +16,8 @@ angular.module('resume.profile', [])
 				          {name: 'JAVA', value: 6}
 			          ],
 			          education : [
+				          'Graduated in Shanghai University of Engineering Science',
 				          'Bachelor of Computer Science and Technology',
-				          'Graduated from Shanghai University of Engineering Science',
 				          'CET6 531'
 			          ],
 			          contact   : {

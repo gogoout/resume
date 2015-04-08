@@ -1,23 +1,38 @@
 'use strict';
 angular.module('resume.ctrls', [])
-	.controller('EntryCtrl', function ($scope, $famous, $timeline, $state, tick) {
+	.controller('EntryCtrl', function ($scope, $famous, $timeline, $state, mediaQuery, tick) {
 		            var Easing = $famous['famous/transitions/Easing'];
 		            $scope.vm = this;
 
+		            // ugly hack, wait for famous to open api
+		            var _outScrollView, _pageWidth = document.documentElement.clientWidth;
+		            var getOuterScrollPosition = function () {
+			            _outScrollView = _outScrollView || $famous.find('#outer-scroller')[0].renderNode;
+			            if (_outScrollView && _outScrollView._node && _outScrollView._node.getSize()[0]) {
+				            var perPosition = Math.max(0, Math.min(1, _outScrollView.getPosition() / (_outScrollView._node.getSize()[0] - _pageWidth)));
+				            return perPosition;
+			            }
+			            else {
+				            return 1;
+			            }
+		            };
+
 		            this.foregroundOption = {
 			            timeline : function () {
-				            return $timeline(
-					            [[30, 0, Easing.inOutQuad],
-					             [50, 1]])(tick());
+				            return (function () {
+					            return $timeline(
+						            [[30, 0, Easing.inOutQuad],
+						             [50, 1]]);
+				            }())
+				            (tick());
 			            },
 			            translate: $timeline(
 				            [[0, [0, -1000, 1]],
 				             [1, [0, 0, 1]]]
-			            )
-			            //skew     : $timeline(
-			            //   [[0, [0, 0, 0.9]],
-			            //    [1, [0, 0, -0.3]]]
-			            //)
+			            ),
+			            skew     : function () {
+				            return [0, 0, -0.3];
+			            }
 			            //scale    : $timeline(
 			            //   [[0, [0.3, 0.3]],
 			            //    [1, [1, 1]]]
@@ -44,9 +59,18 @@ angular.module('resume.ctrls', [])
 			            //)
 		            };
 
+		            this.outerScrollViewOption = {
+			            direction: 0
+		            };
 		            this.scrollViewOption = {
 			            direction: 1
 		            };
+
+		            this.contentSize = mediaQuery({
+			            lgDesktop: [undefined, undefined],
+			            phone    : [1333, undefined]
+		            });
+
 		            var EventHandler = $famous['famous/core/EventHandler'];
 		            this.eventHandler = new EventHandler();
 	            })
@@ -132,8 +156,12 @@ angular.module('resume.ctrls', [])
 			            },
 			            translate: $timeline(
 				            [[0, [0, -200]],
-				             [1, [0, 50]]]
+				             [1, [0, 0]]]
 			            )
+		            };
+
+		            this.upperLayoutOption = {
+			            direction: 0
 		            };
 
 		            this.profile = PROFILE[$stateParams.language];
